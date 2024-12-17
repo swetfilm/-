@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>꧁༒चौHAN༒꧂ - Advanced Search</title>
+    <meta name="keywords" content="download, movies, games, music, software, epub, ebooks, pdf, mp3, songs, direct download">
+    <meta name="description" content="Access direct download links for TV shows, films, books, music, software, and games. Leverage powerful search capabilities.">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(180deg, #000000, #555555); /* Black to grey gradient */
+            font-family: 'Roboto', sans-serif;
+            color: #fff; /* Change text color to white for better visibility */
+        }
+        .header {
+            background: linear-gradient(68deg, #ce00ff, blue, #00ffff); /* Gradient header color */
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+            border-radius: 4px; /* Add border radius */
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 10px; /* Box shadow */
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        .search-container {
+            margin: 50px auto;
+            max-width: 600px;
+            background-color: rgba(255, 255, 255, 0.8); /* Light background for contrast */
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+        .search-box {
+            display: flex;
+            border: 2px solid #00bcd4; /* Cyan border */
+            border-radius: 25px;
+            transition: border-color 0.3s;
+            margin-bottom: 20px; /* Space below search box */
+            width: 100px; /* Set width to 100px */
+        }
+        .search-box:hover {
+            border-color: #0097a7; /* Darker cyan on hover */
+        }
+        .search-box input {
+            border: none;
+            outline: none;
+            flex: 1;
+            font-size: 1.2rem;
+            padding: 10px;
+            border-radius: 25px 0 0 25px; /* Rounded left side */
+            color: #333; /* Dark text for input */
+        }
+        .search-box button {
+            background-color: #00bcd4; /* Cyan button color */
+            color: white;
+            border: none;
+            border-radius: 0 25px 25px 0; /* Rounded right side */
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: background-color 0.3s;
+        }
+        .search-box button:hover {
+            background-color: #0097a7; /* Darker cyan on hover */
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        .btn {
+            position: relative;
+            text-decoration: none;
+            color: #fff;
+            background: linear-gradient(45deg, #0ce39a, #69007f, #fc0987);
+            padding: 14px 25px;
+            border-radius: 10px;
+            font-size: 1.25em;
+            display: inline-block;
+            transition: 0.5s;
+            text-align: center;
+            margin-top: 20px; /* Space above the button */
+        }
+        .btn span {
+            position: relative;
+            z-index: 1;
+        }
+        .btn::before {
+            content: "";
+            position: absolute;
+            inset: 1px;
+            background: #272727;
+            border-radius: 9px;
+            transition: 0.5s;
+        }
+        .btn:hover::before {
+            opacity: 0.7;
+        }
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            color: #888;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Open Directory Search</h1>
+    </div>
+
+    <div class="container search-container">
+        <form id="searchForm" onsubmit="startSearch(); return false;">
+            <input type="hidden" name="fileType" id="fileType" value="">
+            <input type="hidden" name="resType" id="resType" value="video"> <!-- Default to video -->
+            <input type="hidden" name="engine" id="engine" value="google">
+            <div class="search-box mb-3">
+                <input type="text" id="query" class="form-control" placeholder="𝙎𝙚𝙖𝙧𝙘𝙝" required>
+            </div>
+            <div class="grid mb-3">
+                <a href="javascript:void(0);" class="btn" onclick="setFiletype('mkv|mp4|avi|mov|mpg|wmv|divx|mpeg', 'TV/Movies', 'video', 'film')"><span>TV/Movies</span></a>
+                <a href="javascript:void(0);" class="btn" onclick="setFiletype('MOBI|CBZ|CBR|CBC|CHM|EPUB|FB2|LIT|LRF|ODT|PDF|PRC|PDB|PML|RB|RTF|DOC|DOCX', 'Books', 'ebook', 'book')"><span>Books</span></a>
+                <a href="javascript:void(0);" class="btn" onclick="setFiletype('mp3|wav|ac3|ogg|flac|wma|m4a|aac|mod', 'Music', 'audio', 'music')"><span>Music</span></a>
+                <a href="javascript:void(0);" class="btn" onclick="setFiletype('exe|iso|dmg|tar|7z|bz2|gz|rar|zip|apk', 'Software/Games', 'archive', 'cd')"><span>Software/Games</span></a>
+                <a href="javascript:void(0);" class="btn" onclick="setFiletype('jpg|png|bmp|gif|tif|tiff|psd', 'Images', 'picture', 'picture')"><span>Images</span></a>
+                <a href="javascript:void(0);" class="btn" onclick="setFiletype('-1', 'Other', 'all', 'asterisk')"><span>Other</span></a>
+            </div>
+            <a href="javascript:void(0);" class="btn" onclick="startSearch();"><span>&nbsp; &nbsp; &nbsp; &nbsp; 𝙎𝙚𝙖𝙧𝙘𝙝 𝘽𝙮 𝙂𝙤𝙤𝙜𝙡𝙚 &nbsp; &nbsp;&nbsp; &nbsp;</span></a>
+        </form>
+    </div>
+
+    <footer>
+        <p>© 2024-2030 SWETRAHU. All rights reserved. This description and all related content are the intellectual property of SWETRAHU and may not be reproduced, distributed, or used in any form without the express written permission of the owner. SWETRAHU is a skilled coder and technology enthusiast dedicated to creating innovative solutions through programming and software development. With a passion for coding and a commitment to continuous learning, SWETRAHU strives to contribute to the tech community by sharing knowledge, collaborating on projects, and inspiring others. Any unauthorized use or modification of this content is strictly prohibited and may result in legal action. For inquiries or permissions, please contact insta->@opnobitanobi Tele->@Rahul95g directly.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function setFiletype(fileType, buttonData, resType, glyph) {
+            $("#fileType").val(fileType);
+            $("#resType").val(resType);
+            $("#query").focus();
+        }
+
+        function startSearch() {
+            var query = $('#query').val();
+            var fileType = $('#fileType').val();
+            var resType = $('#resType').val();
+            var engine = $('#engine').val();
+            var finalQuery = fileType ? query + ' +(' + fileType + ')' : query;
+
+            var url = "https://www.google.com/search?q=" + encodeURIComponent(finalQuery);
+            window.open(url, '_blank');
+        }
+    </script>
+</body>
+  </html>
